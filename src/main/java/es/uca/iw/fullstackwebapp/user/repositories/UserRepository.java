@@ -1,5 +1,6 @@
-package es.uca.iw.fullstackwebapp.user;
+package es.uca.iw.fullstackwebapp.user.repositories;
 
+import es.uca.iw.fullstackwebapp.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

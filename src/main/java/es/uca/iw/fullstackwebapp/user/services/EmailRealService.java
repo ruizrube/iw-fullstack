@@ -5,15 +5,13 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-@Service("userEmailRealService")
-@Primary
-public class UserEmailRealService implements UserEmailService {
+@Service
+public class EmailRealService implements EmailService {
     private final JavaMailSender mailSender;
     private final HttpServletRequest request;
 
@@ -21,7 +19,7 @@ public class UserEmailRealService implements UserEmailService {
     private String defaultMail;
 
 
-    public UserEmailRealService(JavaMailSender mailSender, HttpServletRequest request) {
+    public EmailRealService(JavaMailSender mailSender, HttpServletRequest request) {
         this.mailSender = mailSender;
         this.request = request;
     }

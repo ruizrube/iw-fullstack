@@ -1,4 +1,4 @@
-package es.uca.iw.fullstackwebapp.user;
+package es.uca.iw.fullstackwebapp.user.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -8,6 +8,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +20,14 @@ public class UserActivationView extends VerticalLayout {
 
     private static final long serialVersionUID = 851217309689685413L;
 
-    private final UserService service;
+    private final UserManagementService service;
     private final H1 title;
     private final TextField email;
     private final TextField secretCode;
     private final Button activate;
     private final H4 status;
 
-    public UserActivationView(UserService service) {
+    public UserActivationView(UserManagementService service) {
         this.service = service;
 
         title = new H1("Activate User");
@@ -60,6 +61,7 @@ public class UserActivationView extends VerticalLayout {
 
         if (service.activateUser(email.getValue(), secretCode.getValue())) {
             status.setText("Congrats. The user has been activated");
+
         } else {
             status.setText("Ups. The user could not be activated");
         }

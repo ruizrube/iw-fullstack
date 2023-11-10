@@ -1,4 +1,4 @@
-package es.uca.iw.ejemplos.fullstack.book;
+package es.uca.iw.fullstackwebapp.book;
 
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,7 @@ public class BookService {
     }
 
     public Book createBook(Book book) {
-//...,
-        //...
+
         return bookRepository.save(book);
     }
 
@@ -25,4 +24,7 @@ public class BookService {
     }
 
 
+    public long count() {
+        return bookRepository.count();
+    }
 }

@@ -1,4 +1,4 @@
-package es.uca.iw.fullstackwebapp.user;
+package es.uca.iw.fullstackwebapp.user.domain;
 
 
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
-package user.uat;
+package es.uca.iw.fullstackwebapp.user.uat;
 
-import es.uca.iw.ejemplos.fullstack.user.User;
-import es.uca.iw.ejemplos.fullstack.user.UserService;
+import es.uca.iw.fullstackwebapp.user.domain.User;
+import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -20,9 +20,11 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.time.Duration;
 import java.util.Optional;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static org.assertj.core.api.Assertions.assertThat;
+
 //La etiqueta @Transactional no funciona con selenium y hay que restaurar manualmente el estado de la BD
 @CucumberContextConfiguration
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 
 public class UserRegistrationAndActivationDefinitions {
 
@@ -32,7 +34,7 @@ public class UserRegistrationAndActivationDefinitions {
     private WebDriver driver;
 
     @Autowired
-    private UserService userService;
+    private UserManagementService userManagementService;
 
     private User testUser;
 
@@ -51,7 +53,7 @@ public class UserRegistrationAndActivationDefinitions {
         }
 
         if (testUser != null && testUser.getId() != null) {
-            userService.delete(testUser);
+            userManagementService.delete(testUser);
         }
 
     }
@@ -59,7 +61,7 @@ public class UserRegistrationAndActivationDefinitions {
     @Given("An user with name {string} is registered on the system")
     public void an_user_is_registered_on_the_system(String username) {
 
-        testUser = userService.loadUserByUsername(username).get();
+        testUser = userManagementService.loadUserByUsername(username).get();
 
     }
 
@@ -82,6 +84,8 @@ public class UserRegistrationAndActivationDefinitions {
         driver.findElement(By.id("email")).sendKeys(testUser.getEmail());
         driver.findElement(By.id("username")).sendKeys(testUser.getUsername());
         driver.findElement(By.id("password")).sendKeys(testUser.getPassword());
+        driver.findElement(By.id("password2")).sendKeys(testUser.getPassword());
+
 
         // and press the activate button
         driver.findElement(By.id("register")).click();
@@ -102,7 +106,7 @@ public class UserRegistrationAndActivationDefinitions {
         // user interaction
         driver.findElement(By.id("email")).sendKeys(email);
 
-        Optional<User> optUser = userService.loadUserByUsername(username);
+        Optional<User> optUser = userManagementService.loadUserByUsername(username);
 
         if (optUser.isPresent()) {
             testUser = optUser.get();

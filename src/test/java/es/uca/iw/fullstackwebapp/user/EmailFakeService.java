@@ -1,10 +1,13 @@
-package es.uca.iw.fullstackwebapp.user.services;
+package es.uca.iw.fullstackwebapp.user;
 
 
 import es.uca.iw.fullstackwebapp.user.domain.User;
+import es.uca.iw.fullstackwebapp.user.services.EmailService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Service("userEmailFakeService")
+@Service()
+@Primary
 public class EmailFakeService implements EmailService {
 
     @Override
@@ -24,7 +27,7 @@ public class EmailFakeService implements EmailService {
 
             int secondsToSleep = 5;
             Thread.sleep(secondsToSleep * 1000);
-            System.out.println("Email sent!");
+            System.out.println("Email send simulation done!");
             return true;
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();

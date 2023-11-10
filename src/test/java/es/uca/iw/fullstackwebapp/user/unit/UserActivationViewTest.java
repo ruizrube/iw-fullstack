@@ -1,4 +1,4 @@
-package es.uca.iw.fullstackwebapp.user.ut;
+package es.uca.iw.fullstackwebapp.user.unit;
 
 import es.uca.iw.fullstackwebapp.user.ObjectMother;
 import es.uca.iw.fullstackwebapp.user.domain.User;

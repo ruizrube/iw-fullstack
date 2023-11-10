@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //La etiqueta @Transactional no funciona con selenium y hay que restaurar manualmente el estado de la BD
-public class UserActivationE2E {
+public class UserRegistrationActivationE2E {
     private final String uribase = "http://127.0.0.1:";
     @LocalServerPort
     private int port;

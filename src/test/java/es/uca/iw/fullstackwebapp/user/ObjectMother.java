@@ -1,11 +1,17 @@
-package user;
+package es.uca.iw.fullstackwebapp.user;
+
+import com.github.javafaker.Faker;
+import es.uca.iw.fullstackwebapp.user.domain.User;
 
 public class ObjectMother {
 
+    private static Faker faker = new Faker();
+
+
     public static User createTestUser() {
         User testUser = new User();
-        testUser.setUsername("student1");
-        testUser.setEmail("student1@iw.uca.es");
+        testUser.setUsername(faker.name().username());
+        testUser.setEmail(faker.internet().emailAddress());
         testUser.setPassword("password");
         return testUser;
     }
@@ -15,7 +21,7 @@ public class ObjectMother {
 
         User testUser = new User();
         testUser.setUsername(username);
-        testUser.setEmail(username + "@iw.uca.es");
+        testUser.setEmail(faker.internet().emailAddress());
         testUser.setPassword("password");
         return testUser;
 

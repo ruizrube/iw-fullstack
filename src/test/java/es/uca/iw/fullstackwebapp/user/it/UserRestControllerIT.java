@@ -1,8 +1,8 @@
-package user.it;
+package es.uca.iw.fullstackwebapp.user.it;
 
-import es.uca.iw.ejemplos.fullstack.user.ObjectMother;
-import es.uca.iw.ejemplos.fullstack.user.User;
-import es.uca.iw.ejemplos.fullstack.user.UserService;
+import es.uca.iw.fullstackwebapp.user.ObjectMother;
+import es.uca.iw.fullstackwebapp.user.domain.User;
+import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,7 +30,7 @@ public class UserRestControllerIT {
     private MockMvc server;
 
     @MockBean
-    private UserService userService;
+    private UserManagementService userManagementService;
 
     @Test
     public void shouldReturnListOfUsers() {
@@ -39,7 +40,7 @@ public class UserRestControllerIT {
         User testUser = ObjectMother.createTestUser();
 
         // and the service is stubbed for the method loadActiveUsers
-        given(userService.loadActiveUsers()).willReturn(List.of(testUser));
+        given(userManagementService.loadActiveUsers()).willReturn(List.of(testUser));
 
         // When
         // Call the HTTP API
@@ -54,4 +55,6 @@ public class UserRestControllerIT {
             e.printStackTrace();
         }
     }
+
+
 }

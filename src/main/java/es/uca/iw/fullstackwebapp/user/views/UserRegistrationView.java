@@ -1,4 +1,4 @@
-package es.uca.iw.fullstackwebapp.user;
+package es.uca.iw.fullstackwebapp.user.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -12,6 +12,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import es.uca.iw.fullstackwebapp.user.domain.User;
+import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 
 @PageTitle("Registrate User")
 @Route(value = "userregistration")
@@ -20,7 +22,7 @@ public class UserRegistrationView extends VerticalLayout {
 
     private static final long serialVersionUID = 851217309689685413L;
 
-    private final UserService service;
+    private final UserManagementService service;
 
     private final H1 title;
 
@@ -35,7 +37,7 @@ public class UserRegistrationView extends VerticalLayout {
 
     private final BeanValidationBinder<User> binder;
 
-    public UserRegistrationView(UserService service) {
+    public UserRegistrationView(UserManagementService service) {
         this.service = service;
 
         title = new H1("Register User");
@@ -79,6 +81,8 @@ public class UserRegistrationView extends VerticalLayout {
             if (service.registerUser(binder.getBean())) {
                 status.setText("Great. Please look at your mail inbox!");
                 status.setVisible(true);
+                binder.setBean(new User());
+                password2.setValue("");
             } else {
                 Notification.show("Please, the username is already in use");
 

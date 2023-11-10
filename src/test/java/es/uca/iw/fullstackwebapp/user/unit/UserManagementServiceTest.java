@@ -1,4 +1,4 @@
-package es.uca.iw.fullstackwebapp.user.ut;
+package es.uca.iw.fullstackwebapp.user.unit;
 
 import es.uca.iw.fullstackwebapp.user.ObjectMother;
 import es.uca.iw.fullstackwebapp.user.domain.User;
@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 public class UserManagementServiceTest {
-    
+
     @Autowired
     private UserManagementService userManagementService;
 
@@ -54,18 +54,21 @@ public class UserManagementServiceTest {
 
     }
 
+
     @Test
     public void shouldActivateAnExistingUser() {
 
         // Given
         // a certain user
         User testUser = ObjectMother.createTestUser();
-        // stored on the repo
-        userManagementService.registerUser(testUser);
 
-        // and the repo methods are stubbed
+        // the repo methods are stubbed
         given(userRepository.findByEmail(anyString())).willReturn(Optional.of(testUser));
         given(userRepository.findByActiveTrue()).willReturn(List.of(testUser));
+
+        
+        // who is registered
+        userManagementService.registerUser(testUser);
 
         // When invoking the method ActivateUser
         boolean result = userManagementService.activateUser(testUser.getEmail(), testUser.getRegisterCode());

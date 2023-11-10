@@ -1,4 +1,4 @@
-package es.uca.iw.ejemplos.fullstack.book;
+package es.uca.iw.fullstackwebapp.book;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -24,9 +24,7 @@ public class BookView extends VerticalLayout {
     private void buildUI() {
         add(new H1("Libros no publicados"));
 
-
         TextField titleFilter = new TextField();
-
 
         grid.setItems(bookService.readUnpublishedBooks());
 

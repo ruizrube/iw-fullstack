@@ -12,14 +12,14 @@ import java.util.UUID;
 
 
 @Service
-public class UserService {
+public class UserManagementService {
 
     private final UserRepository repository;
 
-    private final UserEmailService emailService;
+    private final EmailService emailService;
 
     @Autowired
-    public UserService(UserRepository repository, UserEmailService emailService) {
+    public UserManagementService(UserRepository repository, EmailService emailService) {
         this.repository = repository;
         this.emailService = emailService;
     }

@@ -1,8 +1,8 @@
-package user.it;
+package es.uca.iw.fullstackwebapp.user.it;
 
-import es.uca.iw.ejemplos.fullstack.user.ObjectMother;
-import es.uca.iw.ejemplos.fullstack.user.User;
-import es.uca.iw.ejemplos.fullstack.user.UserService;
+import es.uca.iw.fullstackwebapp.user.ObjectMother;
+import es.uca.iw.fullstackwebapp.user.domain.User;
+import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +19,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -37,7 +38,7 @@ public class UserActivationViewIT {
     private WebDriver driver;
 
     @MockBean
-    private UserService userService;
+    private UserManagementService userManagementService;
 
     @BeforeAll
     public static void setupClass() {
@@ -76,7 +77,7 @@ public class UserActivationViewIT {
         User testUser = ObjectMother.createTestUser();
 
         // and the service is stubbed for the activateUser method
-        given(userService.activateUser(anyString(), anyString())).willReturn(false);
+        given(userManagementService.activateUser(anyString(), anyString())).willReturn(false);
 
         // When
         // point the browser to the activation page
@@ -97,7 +98,7 @@ public class UserActivationViewIT {
         assertThat(element.getText().equals("Ups. The user could not be activated")).isTrue();
 
         // and
-        verify(userService, times(1)).activateUser(anyString(), anyString());
+        verify(userManagementService, times(1)).activateUser(anyString(), anyString());
 
 
     }
@@ -110,7 +111,7 @@ public class UserActivationViewIT {
         User testUser = ObjectMother.createTestUser();
 
         // and the service is stubbed for the activateUser method
-        given(userService.activateUser(anyString(), anyString())).willReturn(true);
+        given(userManagementService.activateUser(anyString(), anyString())).willReturn(true);
 
         // When
 
@@ -131,7 +132,7 @@ public class UserActivationViewIT {
         assertThat(element.getText().equals("Congrats. The user has been activated")).isTrue();
 
         // and
-        verify(userService, times(1)).activateUser(anyString(), anyString());
+        verify(userManagementService, times(1)).activateUser(anyString(), anyString());
 
 
     }

@@ -15,11 +15,14 @@ import com.vaadin.flow.router.RouteAlias;
 import es.uca.iw.fullstackwebapp.user.domain.User;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 
+import java.io.Serial;
+
 @PageTitle("Registrate User")
 @Route(value = "userregistration")
 @RouteAlias("")
 public class UserRegistrationView extends VerticalLayout {
 
+    @Serial
     private static final long serialVersionUID = 851217309689685413L;
 
     private final UserManagementService service;

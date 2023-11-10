@@ -5,7 +5,7 @@ import es.uca.iw.fullstackwebapp.user.domain.User;
 
 public class ObjectMother {
 
-    private static Faker faker = new Faker();
+    private static final Faker faker = new Faker();
 
 
     public static User createTestUser() {

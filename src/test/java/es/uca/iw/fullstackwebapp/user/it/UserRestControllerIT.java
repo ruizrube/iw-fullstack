@@ -44,7 +44,7 @@ public class UserRestControllerIT {
 
         // When
         // Call the HTTP API
-        String input = "/api/Users";
+        String input = "/api/users";
 
         // When make a HTTP API Rest invocation and assertion
         try {

@@ -12,12 +12,15 @@ import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.Serial;
+
 @PageTitle("Activate User")
 @Route(value = "useractivation")
 @Component // Required for unit testing
 @Scope("prototype") // Required for IT testing
 public class UserActivationView extends VerticalLayout {
 
+    @Serial
     private static final long serialVersionUID = 851217309689685413L;
 
     private final UserManagementService service;

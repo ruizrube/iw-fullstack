@@ -18,12 +18,12 @@ public class UserRestController {
         this.service = service;
     }
 
-    @GetMapping("/api/Users")
+    @GetMapping("/api/users")
     public List<User> all() {
         return service.loadActiveUsers();
     }
 
-    @PostMapping("/api/Users")
+    @PostMapping("/api/users")
     void newUser(@RequestBody User newUser) {
         service.registerUser(newUser);
 
@@ -31,21 +31,21 @@ public class UserRestController {
 
     // Single item
 
-    @GetMapping("/api/Users/{id}")
+    @GetMapping("/api/users/{id}")
     User one(@PathVariable String id) {
         // TODO deal with invalid UUID
         return service.loadUserById(UUID.fromString(id))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
     }
 
-    @PutMapping("/api/Users/{id}")
+    @PutMapping("/api/users/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable Integer id) {
 
         // TODO
         return newUser;
     }
 
-    @DeleteMapping("/api/Users/{id}")
+    @DeleteMapping("/api/users/{id}")
     void deleteUser(@PathVariable Integer id) {
         // TODO
     }

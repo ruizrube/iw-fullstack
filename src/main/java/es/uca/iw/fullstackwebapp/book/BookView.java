@@ -4,6 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 
 
@@ -24,11 +25,14 @@ public class BookView extends VerticalLayout {
     private void buildUI() {
         add(new H1("Libros no publicados"));
 
-        TextField titleFilter = new TextField();
+        TextField titleFilter = new TextField("Filtrar por título");
+        titleFilter.setValueChangeMode(ValueChangeMode.EAGER);
+        titleFilter.addValueChangeListener(e -> grid.setItems(bookService.readUnpublishedBooksByTitle(e.getValue())));
 
         grid.setItems(bookService.readUnpublishedBooks());
 
-        add(grid);
+
+        add(titleFilter, grid);
 
     }
 

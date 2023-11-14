@@ -27,4 +27,9 @@ public class BookService {
     public long count() {
         return bookRepository.count();
     }
+
+    public List<Book> readUnpublishedBooksByTitle(String title) {
+
+        return bookRepository.findByTitleContainsAndPublicationDateIsNull(title);
+    }
 }

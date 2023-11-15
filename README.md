@@ -5,6 +5,38 @@
 This repo includes a sample project based on Spring and Vaadin java frameworks. It includes a sample view to show data from a database and a two-step registration user process. However, the app does not include any security mechanism.
 The code is acommpanied by a suite of automated (unit, integration, e2e and acceptance) tests.
 
+## Books module views
+Shows a data grid containing book data. 
+
+http://localhost:8080/books 
+
+![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/Book%20Module%20Class%20Diagram.png?raw=true)
+
+![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/BookView_showFilteredData.png?raw=true)
+
+
+
+## User module views
+![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/User%20Module%20Class%20Diagram.png?raw=true)
+
+### Register user
+Shows a form to register a user on the system
+
+http://localhost:8080/ or http://localhost:8080/userregistration 
+
+![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/UserRegistrationView_onRegisterButtonClick.png?raw=true)
+
+
+### Activate user 
+Shows a form to activate the user by introducing his/her email and secrect code received in the user mailbox
+
+http://localhost:8080/useractivation 
+
+![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/UserActivationView_onActivateButtonClick.png?raw=true)
+
+
+
+
 ## Setting up the application
 
 Open application.properties and modify the following database server (e.g. MySQL) properties:
@@ -31,10 +63,6 @@ on [how to import Vaadin projects to different IDEs](https://vaadin.com/docs/lat
 Eclipse, IntelliJ IDEA, NetBeans, and VS Code).
 
 
-## App views
-- Register user: http://localhost:8080/ or http://localhost:8080/userregistration Shows a form to register a user on the system
-- Activate user: http://localhost:8080/useractivation Shows a form to activate the user by introducing his/her email and secrect code received in the user mailbox
-- Show books: http://localhost:8080/books Shows a data grid containing book data. 
 
 
 ## Deploying to Production

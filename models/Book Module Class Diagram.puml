@@ -31,7 +31,12 @@ class BookService {
   + count(): long
   + readUnpublishedBooks(): List<Book>
 }
-class BookView {
+
+class VerticalLayout{
+    add(Component...): void
+}
+
+class BookView extends VerticalLayout{
   - showFilteredData(): void
   - buildUI(): void
 }

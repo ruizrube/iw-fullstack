@@ -19,7 +19,13 @@ class User {
    email: String
    registerCode: String
 }
-class UserActivationView {
+
+class VerticalLayout {
+    add(Component...): void
+}
+
+
+class UserActivationView extends VerticalLayout{
   + onActivateButtonClick(): void
    secretCode: String
    email: String
@@ -48,13 +54,7 @@ interface UserRepository << interface >> extends JpaRepository{
   + findByActiveTrue(): List<User>
   + findByEmail(String): Optional<User>
 }
-class UserRestController {
-  ~ one(String): User
-  ~ replaceUser(User, Integer): User
-  ~ deleteUser(Integer): void
-  ~ newUser(User): void
-  + all(): List<User>
-}
+
 
 EmailRealService       -[#008200,dashed]-^  EmailService          
 EmailRealService       -[#595959,dashed]->  User                  
@@ -66,6 +66,4 @@ UserManagementService "1" *-[#595959,plain]-> "repository\n1" UserRepository
 UserRegistrationView   -[#595959,dashed]->  User                  : "«create»"
 UserRegistrationView  "1" *-[#595959,plain]-> "service\n1" UserManagementService 
 UserRepository         -[#595959,dashed]->  User                  
-UserRestController     -[#595959,dashed]->  User                  
-UserRestController    "1" *-[#595959,plain]-> "service\n1" UserManagementService 
 @enduml

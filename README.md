@@ -63,6 +63,8 @@ Open application.properties and modify the following mail server (e.g. Gmail) pr
 - spring.mail.username
 - spring.mail.password
 
+*If you use Google SMTP then you need to generate an application password. To do this go to your account settings > Security > How do you sign in to Google > 2-Step Verification > Application passwords*
+
 ## Running the application
 
 The project is a standard Maven project. To run it from the command line,

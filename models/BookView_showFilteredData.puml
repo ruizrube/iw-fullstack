@@ -1,0 +1,14 @@
+@startuml
+participant Actor
+Actor -> BookView : showFilteredData
+activate BookView
+BookView -> BookService : readUnpublishedBooksByTitle
+activate BookService
+BookService -> BookRepository : findByTitleContainsAndPublicationDateIsNull
+activate BookRepository
+BookRepository --> BookService
+deactivate BookRepository
+BookService --> BookView
+deactivate BookService
+return
+@enduml

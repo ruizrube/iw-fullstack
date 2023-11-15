@@ -1,0 +1,26 @@
+@startuml
+participant Actor
+Actor -> UserRegistrationView : onRegisterButtonClick
+activate UserRegistrationView
+alt binder.validate().isOk() & password.getValue().equals(password2.getValue())
+UserRegistrationView -> UserManagementService : registerUser
+activate UserManagementService
+
+
+UserManagementService -> UserRepository : save
+activate UserRepository
+deactivate UserRepository
+
+UserManagementService -> EmailService : sendRegistrationEmail
+activate EmailService
+EmailService --> UserManagementService
+deactivate EmailService
+UserManagementService --> UserRegistrationView
+deactivate UserManagementService
+alt service.registerUser(binder.getBean())
+else 
+end
+else 
+end
+return
+@enduml

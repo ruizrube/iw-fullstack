@@ -1,0 +1,36 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Book {
+   publicationDate: LocalDate
+   title: String
+   publisher: String
+   author: String
+}
+interface BookRepository << interface >> {
+  + findByAuthorContaining(String): List<Book>
+  + findByTitleContainsAndPublicationDateIsNull(String): List<Book>
+  + findByPublicationDateIsNull(): List<Book>
+  + findByTitleContainsAndPublicationDateAfter(String, LocalDate): List<Book>
+  + findByTitleContains(String): List<Book>
+}
+class BookService {
+  + createBook(Book): Book
+  + readUnpublishedBooksByTitle(String): List<Book>
+  + count(): long
+  + readUnpublishedBooks(): List<Book>
+}
+class BookView {
+  - showFilteredData(): void
+  - buildUI(): void
+}
+
+BookRepository  -[#595959,dashed]->  Book           
+BookService     -[#595959,dashed]->  Book           
+BookService    "1" *-[#595959,plain]-> "bookRepository\n1" BookRepository 
+BookView        -[#595959,dashed]->  Book           
+BookView       "1" *-[#595959,plain]-> "bookService\n1" BookService    
+@enduml

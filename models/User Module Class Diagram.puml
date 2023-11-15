@@ -1,0 +1,66 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class EmailRealService {
+  + sendRegistrationEmail(User): boolean
+   serverUrl: String
+}
+interface EmailService << interface >> {
+  + sendRegistrationEmail(User): boolean
+}
+class User {
+  + hashCode(): int
+  + equals(Object): boolean
+   password: String
+   id: UUID
+   username: String
+   active: boolean
+   email: String
+   registerCode: String
+}
+class UserActivationView {
+  + onActivateButtonClick(): void
+   secretCode: String
+   email: String
+   status: String
+}
+class UserManagementService {
+  + loadUserById(UUID): Optional<User>
+  + loadActiveUsers(): List<User>
+  + loadUserByUsername(String): Optional<User>
+  + registerUser(User): boolean
+  + delete(User): void
+  + activateUser(String, String): boolean
+}
+class UserRegistrationView {
+  + onRegisterButtonClick(): void
+}
+interface UserRepository << interface >> {
+  + findByUsername(String): Optional<User>
+  + findByActiveTrue(): List<User>
+  + findByEmail(String): Optional<User>
+}
+class UserRestController {
+  ~ one(String): User
+  ~ replaceUser(User, Integer): User
+  ~ deleteUser(Integer): void
+  ~ newUser(User): void
+  + all(): List<User>
+}
+
+EmailRealService       -[#008200,dashed]-^  EmailService          
+EmailRealService       -[#595959,dashed]->  User                  
+EmailService           -[#595959,dashed]->  User                  
+UserActivationView    "1" *-[#595959,plain]-> "service\n1" UserManagementService 
+UserManagementService "1" *-[#595959,plain]-> "emailService\n1" EmailService          
+UserManagementService  -[#595959,dashed]->  User                  
+UserManagementService "1" *-[#595959,plain]-> "repository\n1" UserRepository        
+UserRegistrationView   -[#595959,dashed]->  User                  : "«create»"
+UserRegistrationView  "1" *-[#595959,plain]-> "service\n1" UserManagementService 
+UserRepository         -[#595959,dashed]->  User                  
+UserRestController     -[#595959,dashed]->  User                  
+UserRestController    "1" *-[#595959,plain]-> "service\n1" UserManagementService 
+@enduml

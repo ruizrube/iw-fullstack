@@ -1,0 +1,29 @@
+@startuml
+participant Actor
+Actor -> UserActivationView : onActivateButtonClick
+activate UserActivationView
+UserActivationView -> UserManagementService : activateUser
+activate UserManagementService
+UserManagementService -> UserRepository : findByEmail
+activate UserRepository
+UserRepository --> UserManagementService
+deactivate UserRepository
+UserManagementService -> User : getRegisterCode
+activate User
+User --> UserManagementService
+deactivate User
+alt user.isPresent() && user.get().getRegisterCode().equals(registerCode)
+UserManagementService -> User : setActive
+activate User
+User --> UserManagementService
+deactivate User
+UserManagementService -> UserRepository: save
+activate UserRepository
+deactivate UserRepository
+
+else 
+end
+UserManagementService --> UserActivationView
+deactivate UserManagementService
+return
+@enduml

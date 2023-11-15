@@ -15,6 +15,8 @@ public class BookView extends VerticalLayout {
 
     private final Grid<Book> grid = new Grid<>(Book.class);
 
+    private TextField titleFilter;
+
     public BookView(BookService bookService) {
         this.bookService = bookService;
 
@@ -25,14 +27,20 @@ public class BookView extends VerticalLayout {
     private void buildUI() {
         add(new H1("Libros no publicados"));
 
-        TextField titleFilter = new TextField("Filtrar por título");
+        titleFilter = new TextField("Filtrar por título");
         titleFilter.setValueChangeMode(ValueChangeMode.EAGER);
-        titleFilter.addValueChangeListener(e -> grid.setItems(bookService.readUnpublishedBooksByTitle(e.getValue())));
+        titleFilter.addValueChangeListener(e -> showFilteredData());
+
 
         grid.setItems(bookService.readUnpublishedBooks());
 
 
         add(titleFilter, grid);
+
+    }
+
+    private void showFilteredData() {
+        grid.setItems(bookService.readUnpublishedBooksByTitle(titleFilter.getValue()));
 
     }
 

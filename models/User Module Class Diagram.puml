@@ -12,10 +12,8 @@ interface EmailService << interface >> {
   + sendRegistrationEmail(User): boolean
 }
 class User {
-  + hashCode(): int
-  + equals(Object): boolean
-   password: String
    id: UUID
+   password: String
    username: String
    active: boolean
    email: String
@@ -38,7 +36,14 @@ class UserManagementService {
 class UserRegistrationView {
   + onRegisterButtonClick(): void
 }
-interface UserRepository << interface >> {
+
+interface JpaRepository << User, UUID >> {
+  + save(T): T
+  + findAll(): List<T>
+  + count(): long
+}
+
+interface UserRepository << interface >> extends JpaRepository{
   + findByUsername(String): Optional<User>
   + findByActiveTrue(): List<User>
   + findByEmail(String): Optional<User>

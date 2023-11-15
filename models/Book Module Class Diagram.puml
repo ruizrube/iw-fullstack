@@ -5,12 +5,20 @@ top to bottom direction
 skinparam linetype ortho
 
 class Book {
+   id: UUID
    publicationDate: LocalDate
    title: String
    publisher: String
    author: String
 }
-interface BookRepository << interface >> {
+
+interface JpaRepository << Book, UUID >> {
+  + save(T): T
+  + findAll(): List<T>
+  + count(): long
+}
+
+interface BookRepository << interface >> extends JpaRepository{
   + findByAuthorContaining(String): List<Book>
   + findByTitleContainsAndPublicationDateIsNull(String): List<Book>
   + findByPublicationDateIsNull(): List<Book>

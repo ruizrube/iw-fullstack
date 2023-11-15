@@ -5,30 +5,42 @@
 This repo includes a sample project based on Spring and Vaadin java frameworks. It includes a sample view to show data from a database and a two-step registration user process. However, the app does not include any security mechanism.
 The code is acommpanied by a suite of automated (unit, integration, e2e and acceptance) tests.
 
-## Books module views
-Shows a data grid containing book data. 
+## Books module
+This module provides a feature to show a data grid containing book data. 
 
-http://localhost:8080/books 
+Route: http://localhost:8080/books 
+
+**Class diagram**
 
 ![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/Book%20Module%20Class%20Diagram.png?raw=true)
+
+**Sequence diagram**
 
 ![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/BookView_showFilteredData.png?raw=true)
 
 
 
-## User module views
+## User module 
+This module provides two views to register and activate users. 
+
+**Class diagram**
+
 ![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/User%20Module%20Class%20Diagram.png?raw=true)
 
 ### Register user
 Shows a form to register a user on the system
 
-http://localhost:8080/ or http://localhost:8080/userregistration 
+Route: http://localhost:8080/ or http://localhost:8080/userregistration 
+
+**Sequence diagram**
 
 ![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/UserRegistrationView_onRegisterButtonClick.png?raw=true)
 
 
 ### Activate user 
 Shows a form to activate the user by introducing his/her email and secrect code received in the user mailbox
+
+**Sequence diagram**
 
 http://localhost:8080/useractivation 
 

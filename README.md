@@ -12,11 +12,11 @@ Route: http://localhost:8080/books
 
 **Class diagram**
 
-![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/Book%20Module%20Class%20Diagram.png?raw=true)
+![UML class diagram](/models/Book%20Module%20Class%20Diagram.png)
 
 **Sequence diagram**
 
-![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/BookView_showFilteredData.png?raw=true)
+![UML sequence diagram](/models/BookView_showFilteredData.png)
 
 
 
@@ -25,7 +25,7 @@ This module provides two views to register and activate users.
 
 **Class diagram**
 
-![UML class diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/User%20Module%20Class%20Diagram.png?raw=true)
+![UML class diagram](/models/User%20Module%20Class%20Diagram.png)
 
 ### Register user
 Shows a form to register a user on the system
@@ -34,7 +34,7 @@ Route: http://localhost:8080/ or http://localhost:8080/userregistration
 
 **Sequence diagram**
 
-![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/UserRegistrationView_onRegisterButtonClick.png?raw=true)
+![UML sequence diagram](/models/UserRegistrationView_onRegisterButtonClick.png)
 
 
 ### Activate user 
@@ -44,7 +44,7 @@ Shows a form to activate the user by introducing his/her email and secrect code 
 
 http://localhost:8080/useractivation 
 
-![UML sequence diagram](https://github.com/ruizrube/iw-fullstack/blob/d8c069d001c9b114cf2ddc1702daea935f563d25/models/UserActivationView_onActivateButtonClick.png?raw=true)
+![UML sequence diagram](/models/UserActivationView_onActivateButtonClick.png)
 
 
 

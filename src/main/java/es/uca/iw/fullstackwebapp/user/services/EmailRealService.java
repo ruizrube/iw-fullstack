@@ -3,30 +3,37 @@ package es.uca.iw.fullstackwebapp.user.services;
 import es.uca.iw.fullstackwebapp.user.domain.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.net.InetAddress;
+
 @Service
 public class EmailRealService implements EmailService {
     private final JavaMailSender mailSender;
-    private final HttpServletRequest request;
 
     @Value("${spring.mail.username}")
     private String defaultMail;
 
+    @Value("${server.port}")
+    private int serverPort;
 
-    public EmailRealService(JavaMailSender mailSender, HttpServletRequest request) {
+    public EmailRealService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
-        this.request = request;
     }
 
 
     private String getServerUrl() {
-        return request.getRequestURL().toString();
+
+        // Generate the server URL
+        String serverUrl = "http://";
+        serverUrl += InetAddress.getLoopbackAddress().getHostAddress();
+        serverUrl += ":" + serverPort + "/";
+        return serverUrl;
+
     }
 
 

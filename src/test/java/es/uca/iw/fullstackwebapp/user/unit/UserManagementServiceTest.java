@@ -3,7 +3,6 @@ package es.uca.iw.fullstackwebapp.user.unit;
 import es.uca.iw.fullstackwebapp.user.ObjectMother;
 import es.uca.iw.fullstackwebapp.user.domain.User;
 import es.uca.iw.fullstackwebapp.user.repositories.UserRepository;
-import es.uca.iw.fullstackwebapp.user.services.EmailService;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +29,10 @@ public class UserManagementServiceTest {
     @MockBean
     private UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
-
     @Test
     public void shouldNotActivateANoExistingUser() {
 
-        // Given
-        // a certain user (not stored on the database)
+        // Given a certain user (not stored on the database)
         User testUser = ObjectMother.createTestUser();
 
         // When invoking the method ActivateUser
@@ -51,7 +46,6 @@ public class UserManagementServiceTest {
 
         // Then the result does not include the user
         assertThat(returnedUsers.contains(testUser)).isFalse();
-
     }
 
 
@@ -66,7 +60,7 @@ public class UserManagementServiceTest {
         given(userRepository.findByEmail(anyString())).willReturn(Optional.of(testUser));
         given(userRepository.findByActiveTrue()).willReturn(List.of(testUser));
 
-        
+
         // who is registered
         userManagementService.registerUser(testUser);
 

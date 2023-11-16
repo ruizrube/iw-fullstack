@@ -6,7 +6,7 @@ import es.uca.iw.fullstackwebapp.user.services.EmailService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Service()
+@Service
 @Primary
 public class EmailFakeService implements EmailService {
 
@@ -34,5 +34,4 @@ public class EmailFakeService implements EmailService {
             return false;
         }
     }
-
 }

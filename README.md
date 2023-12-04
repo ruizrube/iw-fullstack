@@ -8,7 +8,9 @@ The code is acommpanied by a suite of automated (unit, integration, e2e and acce
 ## Books module
 This module provides a feature to show a data grid containing book data. 
 
-Route: http://localhost:8080/books 
+### Book list
+
+Route: http://localhost:8080/booklist 
 
 **Class diagram**
 
@@ -18,6 +20,10 @@ Route: http://localhost:8080/books
 
 ![UML sequence diagram](/models/BookView_showFilteredData.png)
 
+### Book management
+
+Route: http://localhost:8080/bookmanagement
+To do
 
 
 ## User module 
@@ -30,7 +36,7 @@ This module provides two views to register and activate users.
 ### Register user
 Shows a form to register a user on the system
 
-Route: http://localhost:8080/ or http://localhost:8080/userregistration 
+Route: http://localhost:8080/userregistration 
 
 **Sequence diagram**
 
@@ -47,6 +53,11 @@ http://localhost:8080/useractivation
 ![UML sequence diagram](/models/UserActivationView_onActivateButtonClick.png)
 
 
+### User login 
+Login view with user and password
+
+### User home 
+Simple welcome view
 
 
 ## Setting up the application

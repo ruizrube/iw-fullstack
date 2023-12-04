@@ -18,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -61,7 +60,7 @@ public class UserRegistrationAndActivationDefinitions {
     @Given("An user with name {string} is registered on the system")
     public void an_user_is_registered_on_the_system(String username) {
 
-        testUser = userManagementService.loadUserByUsername(username).get();
+        testUser = userManagementService.loadUserByUsername(username);
 
     }
 
@@ -106,10 +105,9 @@ public class UserRegistrationAndActivationDefinitions {
         // user interaction
         driver.findElement(By.id("email")).sendKeys(email);
 
-        Optional<User> optUser = userManagementService.loadUserByUsername(username);
+        User testUser = userManagementService.loadUserByUsername(username);
 
-        if (optUser.isPresent()) {
-            testUser = optUser.get();
+        if (testUser != null) {
             driver.findElement(By.id("secretCode")).sendKeys(testUser.getRegisterCode());
         } else {
             driver.findElement(By.id("secretCode")).sendKeys("randomkey");

@@ -5,11 +5,16 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import es.uca.iw.fullstackwebapp.MainLayout;
+import jakarta.annotation.security.PermitAll;
 
 
-@Route("books")
-public class BookView extends VerticalLayout {
+@Route(value = "booklist", layout = MainLayout.class)
+@PermitAll
+@PageTitle("Book List")
+public class BookListView extends VerticalLayout {
 
     private final BookService bookService;
 
@@ -17,7 +22,7 @@ public class BookView extends VerticalLayout {
 
     private TextField titleFilter;
 
-    public BookView(BookService bookService) {
+    public BookListView(BookService bookService) {
         this.bookService = bookService;
 
         buildUI();

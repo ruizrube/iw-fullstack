@@ -8,6 +8,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ import java.io.Serial;
 @Route(value = "useractivation")
 @Component // Required for unit testing
 @Scope("prototype") // Required for IT testing
+@AnonymousAllowed
 public class UserActivationView extends VerticalLayout {
 
     @Serial
@@ -64,6 +67,8 @@ public class UserActivationView extends VerticalLayout {
 
         if (service.activateUser(email.getValue(), secretCode.getValue())) {
             status.setText("Congrats. The user has been activated");
+            add(new RouterLink("Log in", UserHomeView.class));
+
 
         } else {
             status.setText("Ups. The user could not be activated");

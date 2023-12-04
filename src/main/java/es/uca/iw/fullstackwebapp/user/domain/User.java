@@ -6,12 +6,19 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "appuser")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -32,7 +39,22 @@ public class User {
 
     private boolean active;
 
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
+
+
     private String registerCode = "";
+
+    public List<GrantedAuthority> getAuthorities() {
+        return this.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+
+    }
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
 
     public String getEmail() {
         return email;
@@ -100,5 +122,33 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public byte[] getProfilePicture() {
+        return null;
     }
 }

@@ -11,7 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import es.uca.iw.fullstackwebapp.user.domain.User;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 
@@ -19,7 +19,8 @@ import java.io.Serial;
 
 @PageTitle("Registrate User")
 @Route(value = "userregistration")
-@RouteAlias("")
+//@RouteAlias("")
+@AnonymousAllowed
 public class UserRegistrationView extends VerticalLayout {
 
     @Serial

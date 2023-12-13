@@ -24,14 +24,17 @@ public class LandingView extends VerticalLayout {
 
 
     public LandingView() {
-
+        this.setAlignItems(Alignment.CENTER);
+        this.setJustifyContentMode(JustifyContentMode.CENTER);
+        this.setHeightFull();
     }
 
 
     @PostConstruct
     public void init() {
 
-        // Este método se ejecuta después del constructor e inyectar las dependencias (appVersion)
+        // Este método se ejecuta después de que se ejecute el constructor y se inyecten las dependencias (appVersion)
+
         add(new H1("Bienvenid@ a la aplicación demo"));
         add(new H2("Ingeniería Web"));
         add(new H3("Versión: " + appVersion));

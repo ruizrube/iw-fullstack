@@ -9,7 +9,7 @@
     </parent>
     <groupId>es.uca.iw</groupId>
     <artifactId>fullstackwebapp</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <name>iw-fullstack</name>
     <description>iw-fullstack</description>
     <properties>

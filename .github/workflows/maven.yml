@@ -51,7 +51,7 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          application_name: fullstackwebapp-env   # Configurar nombre de la app
+          application_name: fullstackwebapp   # Configurar nombre de la app
           environment_name: fullstackwebapp-env  # Configurar nombre del entorno
           region: us-east-1 # Configurar región
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}

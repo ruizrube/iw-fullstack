@@ -35,8 +35,8 @@ public class LandingView extends VerticalLayout {
 
         // Este método se ejecuta después de que se ejecute el constructor y se inyecten las dependencias (appVersion)
 
-        add(new H1("Bienvenid@ a la aplicación demo"));
-        add(new H2("Ingeniería Web"));
+        add(new H1("Ingeniería Web"));
+        add(new H2("Bienvenid@ a la aplicación demo"));
         add(new H3("Versión: " + appVersion));
 
         RouterLink homeLink = new RouterLink("User Home view", UserHomeView.class);

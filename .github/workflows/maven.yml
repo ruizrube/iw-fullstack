@@ -13,23 +13,53 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    permissions:
+      contents: read
+      packages: write
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    steps:
+      - name: Checkout code, setup Maven, cache dependencies and more...
+        uses: s4u/setup-maven-action@v1.10.0
+        with:
+          java-distribution: 'temurin'
+          java-version: '17'
+
+      - name: Get Artifact version from pom.xml
+        uses: entimaniac/read-pom-version-action@1.0.0
+        id: getVersion
+
+      - name: Build with Maven and analyze with Sonar Cloud
+        env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn clean -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ruizrube_iw-fullstack
+
+      - name: Build and Deploy to GitHub Packages
+        run: mvn deploy -U -B -Pproduction
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Rename jar file
+        run: mv target/*.jar target/webapp.jar
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          application_name: iw-fullstack   # Configurar nombre de la app
+          environment_name: iw-fullstack-env  # Configurar nombre del entorno
+          region: us-east-1 # Configurar región
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          version_label: ${{ steps.getVersion.outputs.version }}
+          version_description: ${{github.SHA}}
+          deployment_package: target/webapp.jar
+          use_existing_version_if_available: true
+
+

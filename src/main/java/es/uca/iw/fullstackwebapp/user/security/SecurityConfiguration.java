@@ -23,12 +23,8 @@ public class SecurityConfiguration extends VaadinWebSecurity {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(
-                authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/images/*.*")).permitAll());
+                authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg"), new AntPathRequestMatcher("/images/*.*"), new AntPathRequestMatcher("/api/**")).anonymous());
 
-        // Icons from the line-awesome addon
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg")).permitAll());
-        
 
         super.configure(http);
         setLoginView(http, UserLoginView.class);

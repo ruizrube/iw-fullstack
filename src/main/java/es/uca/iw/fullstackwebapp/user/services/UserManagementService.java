@@ -20,7 +20,6 @@ import java.util.UUID;
 public class UserManagementService implements UserDetailsService {
 
     private final UserRepository repository;
-
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 

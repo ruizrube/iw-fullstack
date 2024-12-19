@@ -32,6 +32,7 @@ public class UserActivationView extends VerticalLayout {
     private final TextField secretCode;
     private final Button activate;
     private final H4 status;
+    private final RouterLink login;
 
     public UserActivationView(UserManagementService service) {
         this.service = service;
@@ -45,11 +46,15 @@ public class UserActivationView extends VerticalLayout {
 
         status = new H4();
         status.setId("status");
+        status.setVisible(false);
+
+        login=new RouterLink("Log in", UserHomeView.class);
+        login.setId("login");
+        login.setVisible(false);
 
         activate = new Button("Activate");
         activate.setId("activate");
 
-        status.setVisible(false);
 
         setMargin(true);
 
@@ -67,7 +72,7 @@ public class UserActivationView extends VerticalLayout {
 
         if (service.activateUser(email.getValue(), secretCode.getValue())) {
             status.setText("Congrats. The user has been activated");
-            add(new RouterLink("Log in", UserHomeView.class));
+            login.setVisible(true);
 
 
         } else {

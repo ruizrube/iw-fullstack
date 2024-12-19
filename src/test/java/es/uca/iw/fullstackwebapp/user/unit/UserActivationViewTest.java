@@ -1,13 +1,21 @@
 package es.uca.iw.fullstackwebapp.user.unit;
 
+import com.vaadin.flow.function.DeploymentConfiguration;
+import com.vaadin.flow.server.*;
 import es.uca.iw.fullstackwebapp.user.ObjectMother;
 import es.uca.iw.fullstackwebapp.user.domain.User;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import es.uca.iw.fullstackwebapp.user.views.UserActivationView;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -19,15 +27,19 @@ import static org.mockito.Mockito.verify;
  * @author ivanruizrube
  */
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserActivationViewTest {
 
-    @Autowired
     private UserActivationView userView;
 
-    @MockBean
+    @Mock
     private UserManagementService userManagementService;
 
+    @BeforeEach
+    public void setUp() {
+        userView = new UserActivationView(userManagementService);
+
+    }
     @Test
     public void shouldShowFailureMessageWhenUserIsNotActivated() {
 

@@ -1,27 +1,24 @@
-package es.uca.iw.fullstackwebapp.user.e2e;
+package es.uca.iw.fullstackwebapp.user.it;
 
-import es.uca.iw.fullstackwebapp.user.domain.User;
-import es.uca.iw.fullstackwebapp.user.it.UserActivationViewAbstractIT;
 import es.uca.iw.fullstackwebapp.user.services.UserManagementService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 
 /**
  * @author ivanruizrube
  */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//La etiqueta @Transactional no funciona con selenium y hay que restaurar manualmente el estado de la BD
-public class UserActivationE2E extends UserActivationViewAbstractIT {
+public class UserActivationViewViewIT extends UserActivationViewAbstractIT {
 
 
-    @Autowired
+    @MockBean
     private UserManagementService userManagementService;
-
-
-    private User testUser;
 
 
     @Override
@@ -33,26 +30,34 @@ public class UserActivationE2E extends UserActivationViewAbstractIT {
     @AfterEach
     public void teardown() {
         if (driver != null) {
+            driver.close();
             driver.quit();
-        }
-
-        if (testUser != null && testUser.getId() != null) {
-            userManagementService.delete(testUser);
         }
     }
 
     @Test
     public void shouldNotActivateANoExistingUser() {
 
+        // and the service is stubbed for the activateUser method
+        given(userManagementService.activateUser(anyString(), anyString())).willReturn(false);
+
         super.shouldNotActivateANoExistingUser();
 
-    }
 
+    }
 
     @Test
     public void shouldActivateAnExistingUser() {
 
+        // and the service is stubbed for the activateUser method
+        given(userManagementService.activateUser(anyString(), anyString())).willReturn(true);
+
         super.shouldActivateAnExistingUser();
 
+        // and
+        //verify(userManagementService, times(2)).activateUser(anyString(), anyString());
+
+
     }
+
 }

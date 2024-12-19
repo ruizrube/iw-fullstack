@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @WebMvcTest
+@EnableWebSecurity
 public class UserRestControllerIT {
 
     @Autowired
@@ -35,8 +37,7 @@ public class UserRestControllerIT {
     @Test
     public void shouldReturnListOfUsers() {
 
-        // Given
-        // a certain user
+        // Given a certain user
         User testUser = ObjectMother.createTestUser();
 
         // and the service is stubbed for the method loadActiveUsers
@@ -46,7 +47,7 @@ public class UserRestControllerIT {
         // Call the HTTP API
         String input = "/api/users";
 
-        // When make a HTTP API Rest invocation and assertion
+        // When make an HTTP API Rest invocation and assertion
         try {
             server.perform(get(input).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                     .andExpect(jsonPath("$", hasSize(1)))

@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write # Cambié a 'write' para que la acción de release pueda crear la etiqueta/release.
       packages: write
 
     steps:
@@ -45,15 +45,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Rename jar file
+      - name: Rename jar file to webapp.jar
+        # Busca el JAR creado por el build y lo renombra para los pasos de Release y EB
         run: mv target/*.jar target/webapp.jar
 
+      - name: Create GitHub Release Draft
+        # Se ejecuta solo en 'push' o 'workflow_dispatch', no en 'pull_request'.
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.getVersion.outputs.version }}
+          name: Release v${{ steps.getVersion.outputs.version }}
+          body: |
+            Automated draft release for version ${{ steps.getVersion.outputs.version }} from commit ${{ github.sha }}.
+            
+            ***
+            (Edite estas notas y elimine el texto por encima antes de publicar.)
+          files: target/webapp.jar
+          generate_release_notes: false
+          make_latest: false
+          draft: true
+          prerelease: false
+          allowUpdates: true
+          
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          application_name: iw2024uca   # Configurar nombre de la app
-          environment_name: iw2024uca-env  # Configurar nombre del entorno
-          region: us-east-1 # Configurar región
+          application_name: iw2024uca
+          environment_name: iw2024uca-env
+          region: us-east-1
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
@@ -61,5 +81,3 @@ jobs:
           version_description: ${{github.SHA}}
           deployment_package: target/webapp.jar
           use_existing_version_if_available: true
-
-

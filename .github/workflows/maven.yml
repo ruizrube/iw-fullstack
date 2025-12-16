@@ -11,8 +11,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
@@ -20,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write # Cambié a 'write' para que la acción de release pueda crear la etiqueta/release.
+      contents: write 
       packages: write
 
     steps:
@@ -50,8 +48,6 @@ jobs:
         run: mv target/*.jar target/webapp.jar
 
       - name: Create GitHub Release Draft
-        # Se ejecuta solo en 'push' o 'workflow_dispatch', no en 'pull_request'.
-        if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.getVersion.outputs.version }}
